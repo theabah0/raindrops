@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        canvas,body,html{
+        background-color:#383829;
+        margin:1px
+        }
+        
+    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gem hunter</title>
+</head>
+<body>
+  <canvas id="myCanvas" width="350" height="700" style="border:1px solid black;"></canvas>
+  <script>
+    // Get the canvas element
+    const canvas = document.getElementById('myCanvas');
+    // Ensure the browser supports canvas
+    if (canvas.getContext) {
+      // Get the 2D rendering context
+      const ctx = canvas.getContext('2d');
+      
+ 
+
+
+
+//variables
+let gameisover=0;
+let playerY = canvas.height / 1.5;
+let score=0;
+let dy = 5;
+let dx = 2;
+let x = canvas.width / 2; 
+let y =1 -canvas.height*(2.4);
+let y1 =1 -canvas.height*(2.2);
+let y2 = 1-canvas.height*(2.0);
+let y3 = 1-canvas.height*(1.8);
+let y4 =1 -canvas.height*(1.6);
+let y5 = 1-canvas.height*(1.4);
+let y6= 1-canvas.height*(1.2);
+let y7= 1-canvas.height*(0.8);
+let y8= 1-canvas.height*(0.4);
+let y9= 1-canvas.height*(0.2);
+let y10= 1-canvas.height*(0.01);
+
+rand1=Math.random();
+                                                                                                                                                      
+rand2=Math.random();
+
+
+                                                                                                    rand3=Math.random();                                                                                                                                                                                                                                      rand4=Math.random();                                                                                                                                                                                                                                      rand5=Math.random();                                                                                
+                                                                                                    rand6=Math.random();                                                                                                                                                                                                                                      rand7=Math.random();                                                                                
+                                                                                                    rand8=Math.random();                              
+
+
+
+rand9=Math.random();                                                                                                                                                                                                                                      rand10=Math.random();
+
+let x0 = Math.random()*canvas.width;
+let x1 = Math.random()*canvas.width;
+let x2 = Math.random()*canvas.width;
+let x3 = Math.random()*canvas.width;
+let x4 = Math.random()*canvas.width;
+let x5 = Math.random()*canvas.width;
+let x6 = Math.random()*canvas.width;
+let x7 = Math.random()*canvas.width;
+let x8 = Math.random()*canvas.width;
+let x9 = Math.random()*canvas.width;
+let x10 = Math.random()*canvas.width;
+
+let secondball=Math.random();
+const ballRadius = 10;
+const paddleHeight = 10; 
+const paddleWidth = 75;
+let paddleX = (canvas.width - paddleWidth) / 2;
+let arr={"x":40,"y":70};
+
+
+function drawBall(xspec,yspec) {
+
+  ctx.beginPath();
+  
+  ctx.arc(xspec, yspec, ballRadius, 0, Math.PI * 2);
+  //secondball logic
+ 
+  //ctx.arc(xspec *2 , yspec, ballRadius, 0, Math.PI * 2);
+  
+  ctx.fillStyle = "#0095DD";
+  ctx.fill();
+  ctx.closePath();
+}
+
+function drawTest(){
+    //canvas.width/2)*(0.3+rand)
+        
+ctx.beginPath();
+ctx.rect(canvas.width/2,canvas.height/2,canvas.width/2,canvas.height/2);
+  
+  ctx.fillStyle = "#3d3d00";
+  ctx.fill();
+  ctx.closePath();
+}
+
+function draw() {
+if (!gameisover){
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+drawPlayer();
+
+drawBall(x1,y1);
+
+drawObstacle(x2,y2,rand2);
+
+drawBall(x3,y3);
+
+drawBall(x4,y4);
+
+drawObstacle(x5,y5,rand5);
+
+drawBall(x6,y6);
+
+drawBall(x7,y7);
+
+drawObstacle(x8,y8,rand5);
+
+drawBall(x9,y9);
+
+drawBall(x10,y10);
+
+//drawObstacle(xy10);
+
+//drawTest();
+
+gravity();
+
+collisionDetection();
+drawScore();
+dy=dy+0.001;
+requestAnimationFrame(draw);
+}
+}
+
+//document.addEventListener("mousemove", movePlayer, false);
+const movePlayer = (event) => {
+			const touch = event.touches[0];
+			x = touch.clientX;
+			const yt = touch.clientY;
+			//document.getElementById('pointer-position').innerHTML = `Pointer position: x=${x}, y=${y}`;
+		};
+		
+		document.addEventListener('touchmove', movePlayer);
+		
+		
+/*
+function movePlayer(e){
+     const relativeX = e.clientX - canvas.offsetLeft; 
+    if (relativeX > 0 && relativeX < canvas.width)
+     {
+    while(x>=relativeX){
+       x=x-0.001;
+      // setTimeout(()=>x=x-1,1);
+     }   
+     while(x<=relativeX){
+       x=x+0.001;
+       //  setTimeout(()=>x=x-1,1);
+     } 
+      //x = relativeX - ballRadius / 2;
+} 
+//testing
+    console.log("clientx ");
+    console.log(e.clientX);
+    console.log("relativex");
+    console.log(relativeX);
+    console.log("x");
+    console.log(x);
+    
+}
+*/
+
+function gravity(){
+    y=y+dy;
+    y1=y1+dy;
+    y2=y2+dy;
+    y3=y3+dy;
+    y4=y4+dy;
+    y5=y5+dy;
+    y6=y6+dy;
+    y7=y7+dy;
+    y8=y8+dy;
+    y9=y9+dy;
+    y10=y10+dy;
+    
+    //speed increment
+   // dy=dy+0.1;
+    
+    
+    if (y>=canvas.height){
+        y=0;
+    }
+    
+    if (y1>=canvas.height){                                   
+    y1=2 - canvas.width*2.5; x1=Math.random()*canvas.width;                             rand1=Math.random();                                                                }                                                                                                                                                                                                                                                                                                       if (y2>=canvas.height){
+        y2=2 - canvas.width*2.5; x2=Math.random()*canvas.width;                             rand2=Math.random();                                                                }                                                                                                                                                                                                                                                                                                       if (y3>=canvas.height){
+        y3=2 - canvas.width*2.5; x3=Math.random()*canvas.width;                         rand3=Math.random();                                                                    }
+                                                                                                   if (y4>=canvas.height){                                 
+                                                                                                      y4=2 - canvas.width*2.5; x4=Math.random()*canvas.width;                        rand4=Math.random();                                                                     }                                                                                                                                                                                                                                                                                                       if (y5>=canvas.height){                                
+                                                                                                       y5=2 - canvas.width*2.5; x5=Math.random()*canvas.width;
+     rand5=Math.random();                                                 }                                                                                                                                                                                                                                                                                                       if (y6>=canvas.height){                                 
+                                                        y6=2 - canvas.width*2.5; x6=Math.random()*canvas.width;
+    rand6=Math.random();                                                  }                                                                                               
+                                                      
+if (y7>=canvas.height){                               
+    y7=2 - canvas.width*2.5; x7=Math.random()*canvas.width;                       rand7=Math.random();                                                                      }                                                                                                                                                                                                                                                                                                       if (y8>=canvas.height){                                  
+ y8=2 - canvas.width*2.5; x8=Math.random()*canvas.width;                        rand8=Math.random();                                                                     }
+                                                                                                                                                                                                                                                          if (y9>=canvas.height){                                 
+                                                                                                                                                                                                                                                            y9=2 - canvas.width*2.5; x9=Math.random()*canvas.width;                        rand9=Math.random();                                                                     }
+                                                                                                                                                      
+
+if (y10>=canvas.height){
+        y10=2 - canvas.width*2.5; x10=Math.random()*canvas.width;                      rand10=Math.random();                                                                     }
+
+    
+
+                                 
+ 
+}
+
+
+function drawObstacle(xspec,yspec,rand){
+    
+ctx.beginPath();
+ctx.rect(xspec,yspec,(canvas.width/2)*(0.3+rand),10);
+  
+  ctx.fillStyle = "#220ff0";
+  ctx.fill();
+  ctx.closePath();
+  
+    
+}
+
+
+function drawPlayer() {
+
+  ctx.beginPath();
+  
+  ctx.arc(x, playerY, ballRadius, 0, Math.PI * 2);
+  ctx.fillStyle = "#220000";
+  ctx.fill();
+  ctx.closePath();
+}
+function collisionDetection(){
+    //with obstacle
+if (x2< x && x2+(canvas.width/2)*(0.3+rand2) >x && y2<=playerY && y2+10>=playerY)
+   {
+       gameover();
+   }
+
+
+if (x5< x && x5+(canvas.width/2)*(0.3+rand5) >x && y5<=playerY && y5+10>=playerY)
+   {
+       gameover();
+   }
+
+
+if (x8< x && x8+(canvas.width/2)*(0.3+rand8) >x && y8<=playerY && y8+10>=playerY)
+   {
+       gameover();
+   }
+    //with gems
+    if(x1+ballRadius > x && x1-ballRadius < x && y1+ballRadius>playerY  && y1-ballRadius<playerY ){
+        score=score+1;
+        x1=x1+canvas.width*10;
+    }
+
+
+
+/* if(x2+ballRadius > x && x2-ballRadius < x && y2+ballRadius>playerY  && y2-ballRadius<playerY ){
+        score=score+1;
+        x2=x2+canvas.width*10;
+    }   */
+
+
+
+if(x3+ballRadius > x && x3-ballRadius < x && y3+ballRadius>playerY  && y3-ballRadius<playerY ){
+        score=score+1;
+        x3=x3+canvas.width*10;
+    }
+
+
+
+if(x4+ballRadius > x && x4-ballRadius < x && y4+ballRadius>playerY  && y4-ballRadius<playerY ){
+        score=score+1;
+        x4=x4+canvas.width*10;
+    }
+
+
+
+/* if(x5+ballRadius > x && x5-ballRadius < x && y5+ballRadius>playerY  && y5-ballRadius<playerY ){
+        score=score+1;
+        x5=x5+canvas.width*10;
+    } */
+
+
+
+if(x6+ballRadius > x && x6-ballRadius < x && y6+ballRadius>playerY  && y6-ballRadius<playerY ){
+        score=score+1;
+        x6=x6+canvas.width*10;
+    }
+
+
+
+if(x7+ballRadius > x && x7-ballRadius < x && y7+ballRadius>playerY  && y7-ballRadius<playerY ){
+        score=score+1;
+        x7=x7+canvas.width*10;
+    }
+
+
+
+/*if(x8+ballRadius > x && x8-ballRadius < x && y8+ballRadius>playerY  && y8-ballRadius<playerY ){
+        score=score+1;
+        x8=x8+canvas.width*10;
+    } */
+
+
+
+if(x9+ballRadius > x && x9-ballRadius < x && y9+ballRadius>playerY  && y9-ballRadius<playerY ){
+        score=score+1;
+        x9=x9+canvas.width*10;
+    }
+
+
+
+if(x10+ballRadius > x && x10-ballRadius < x && y10+ballRadius>playerY  && y10-ballRadius<playerY ){
+        score=score+1;
+        x10=x10+canvas.width*10;
+    }
+}
+
+function drawScore() {
+ ctx.font = "16px Arial"; 
+ ctx.fillStyle = "#0095DD";
+ ctx.fillText(`Score: ${score}`, 8, 20);
+  }
+  
+  function gameover(){
+      
+      alert("GAME OVER"); 
+         gameisover=1;
+         
+     //alert("game what? over baby");
+     // clearInterval(interval);
+  }
+  
+//const interval= setInterval(draw,10000);
+
+
+draw();
+
+
+
+    }
+  </script>
+</body>
+</html>
